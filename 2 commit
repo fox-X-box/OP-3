@@ -23,7 +23,7 @@ public class SimpleMap<TKey, TValue>
 
     public SimpleMap(int capacity = 16)
     {
-        
+        buckets = new Node[capacity];
         //throw new NotImplementedException();
     }
 
@@ -45,9 +45,15 @@ public class SimpleMap<TKey, TValue>
     
     public void Put(TKey key, TValue value)
     {
-        int hash = key.GetHashCode();
-        int bucket = hash % lenght(buckets)
-        buckets[bucket].add[Node(key, value)]
+        int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Lenght;
+        if (bucket == null)
+        {
+            buckets[bucket] = new Node(key, value);
+        }
+        else
+        {
+            buckets[bucket] = Node(key, value)
+        }
         //throw new NotImplementedException();
     }
 
