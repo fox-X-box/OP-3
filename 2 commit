@@ -79,8 +79,12 @@ public class SimpleMap<TKey, TValue>
 
     public bool Remove(TKey key)
     {
-        
-        
+        int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
+        Node current = buckets[bucket];
+        if (current == null)
+        {
+            return false;
+        }
         //throw new NotImplementedException();
     }
 }
