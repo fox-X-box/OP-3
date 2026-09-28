@@ -52,11 +52,17 @@ public class SimpleMap<TKey, TValue>
         }
         else
         {
-            while (Node.Next != null)
+            Node current = buckets[bucket];
+            while (current.Next != null)
             {
                 current = current.Next;
+                if (current.Key = key)
+                {
+                    current.Value = value;
+                    break;
+                }
             }
-            buckets[bucket] = new Node(key, value);
+            current.Next = new Node(key, value);
         }
     }
 
