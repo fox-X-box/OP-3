@@ -48,18 +48,24 @@ public class SimpleMap<TKey, TValue>
         int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
         if (buckets[bucket] == null)
         {
+            
             buckets[bucket] = new Node(key, value);
         }
         else
         {
             Node current = buckets[bucket];
-            while (current.Next != null)
-            {
-                current = current.Next;
-                if (current.Key = key)
+            if (object.Equals(current.Key, key))
                 {
                     current.Value = value;
-                    break;
+                    return;
+                }    
+            while (current.Next != null)
+            {   
+                current = current.Next;
+                if (object.Equals(current.Key, key))
+                {
+                    current.Value = value;
+                    return;
                 }
             }
             current.Next = new Node(key, value);
@@ -73,6 +79,8 @@ public class SimpleMap<TKey, TValue>
 
     public bool Remove(TKey key)
     {
-        throw new NotImplementedException();
+        
+        
+        //throw new NotImplementedException();
     }
 }
