@@ -20,6 +20,7 @@ namespace Collections;
 public class SimpleMap<TKey, TValue>
 {
     private Node[] buckets;
+    private int count;
 
     public SimpleMap(int capacity = 16)
     {
@@ -27,7 +28,7 @@ public class SimpleMap<TKey, TValue>
         //throw new NotImplementedException();
     }
 
-    public int Count => throw new NotImplementedException();
+    public int Count => count; //throw new NotImplementedException();
 
     private class Node
     {
@@ -48,8 +49,8 @@ public class SimpleMap<TKey, TValue>
         int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
         if (buckets[bucket] == null)
         {
-            
             buckets[bucket] = new Node(key, value);
+            count++;
         }
         else
         {
@@ -68,6 +69,7 @@ public class SimpleMap<TKey, TValue>
                     return;
                 }
             }
+            count++;
             current.Next = new Node(key, value);
         }
     }
@@ -88,6 +90,7 @@ public class SimpleMap<TKey, TValue>
         if (object.Equals(current.Key, key))
         {
             buckets[bucket] = current.Next;
+            count--;
             return true;
         }
         Node previous = current;
@@ -97,6 +100,7 @@ public class SimpleMap<TKey, TValue>
             if (object.Equals(current.Key, key))
             {
                 previous.Next = current.Next;
+                count--;
                 return true;
             }
 
