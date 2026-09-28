@@ -47,7 +47,7 @@ public class SimpleMap<TKey, TValue>
     {
         int hash = key.GetHashCode();
         int bucket = hash % lenght(buckets)
-        buckets.add(Node[bucket])
+        buckets[bucket].add[Node(key, value)]
         //throw new NotImplementedException();
     }
 
