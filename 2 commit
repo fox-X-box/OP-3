@@ -79,12 +79,16 @@ public class SimpleMap<TKey, TValue>
                     }
                     i1++;
                 }
-                    
-                }
-            }
-            bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
+                Put(key, value);
+                return;
+            }    
+            
+            else
+            {
             buckets[bucket] = new Node(key, value);
             count++;
+            }
+            
         }
         else
         {
@@ -161,3 +165,4 @@ public class SimpleMap<TKey, TValue>
         return false;
         //throw new NotImplementedException();
     }
+}
