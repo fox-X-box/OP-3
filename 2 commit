@@ -26,7 +26,7 @@ public class SimpleMap<TKey, TValue>
 
     public int Count => throw new NotImplementedException();
 
-    public void Node()
+    public Node(TKey key, TValue value)
     {
         public TKey Key;
         public TValue Value;
@@ -37,7 +37,7 @@ public class SimpleMap<TKey, TValue>
     {
         int hash = key.GetHashCode();
         bucket = hash % 16
-        bucket.add(Node())
+        bucket.add(Node(key, value))
         //throw new NotImplementedException();
     }
 
