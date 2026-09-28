@@ -1,5 +1,5 @@
 namespace Collections;
-{
+
 // ЗАДАНИЕ 1. Хэш-таблица на голом массиве.
 //
 // Разрешено: обычные массивы (T[]), свои классы-узлы.
@@ -65,22 +65,24 @@ public class SimpleMap<TKey, TValue>
         {
             if (sixseven_procent() == true)
             {
-                SimpleMap(buckets.Length * 2);
-                int c = count;
+                Node[] buc = buckets;
+                buckets = new Node[buc.Length * 2];
+                count = 0;
                 int i1 = 0;
-                buc = buckets
-                while (i1 < buckets.Length / 2)
+                while (i1 < buc.Length)
                 {
                     Node current = buc[i1];
                     while (current != null)
                     {
-                        Remove(current.Key)
-                        Put(current.Key, current.Value)
+                        Put(current.Key, current.Value);
+                        current = current.Next;
                     }
+                    i1++;
                 }
                     
                 }
             }
+            bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
             buckets[bucket] = new Node(key, value);
             count++;
         }
@@ -159,4 +161,3 @@ public class SimpleMap<TKey, TValue>
         return false;
         //throw new NotImplementedException();
     }
-}
