@@ -85,6 +85,26 @@ public class SimpleMap<TKey, TValue>
         {
             return false;
         }
+        if (object.Equals(current.Key, key))
+        {
+            buckets[bucket] = current.Next;
+            return true;
+        }
+        Node previous = current;
+        current = current.Next;
+        while (current != null)
+        {
+            if (object.Equals(current.Key, key))
+            {
+                previous.Next = current.Next;
+                return true;
+            }
+
+            previous = current;
+            current = current.Next;
+
+        }
+        return false;
         //throw new NotImplementedException();
     }
 }
