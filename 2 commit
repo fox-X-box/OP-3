@@ -1,0 +1,53 @@
+namespace Collections;
+
+// ЗАДАНИЕ 1. Хэш-таблица на голом массиве.
+//
+// Разрешено: обычные массивы (T[]), свои классы-узлы.
+// Запрещено: Dictionary, HashSet, List, LINQ внутри реализации.
+//
+// Что нужно:
+//   Put      — добавить пару или перезаписать значение по существующему ключу
+//   TryGet   — найти значение по ключу
+//   Remove   — удалить пару, вернуть true если она была
+//   Count    — сколько пар лежит сейчас
+//
+// Обязательно:
+//   * номер ячейки считается из key.GetHashCode()
+//     не забудьте, что хэш бывает отрицательным
+//   * коллизии обрабатываются (два ключа в одной ячейке)
+//   * при заполнении больше ~75% массив растёт вдвое
+//     и все пары раскладываются заново
+public class SimpleMap<TKey, TValue>
+{
+    public SimpleMap(int capacity = 16)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int Count => throw new NotImplementedException();
+
+    public void Node()
+    {
+        public TKey Key;
+        public TValue Value;
+        public Node Next;
+    }
+    
+    public void Put(TKey key, TValue value)
+    {
+        int hash = key.GetHashCode();
+        bucket = hash % 16
+        bucket.add(Node())
+        //throw new NotImplementedException();
+    }
+
+    public bool TryGet(TKey key, out TValue value)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Remove(TKey key)
+    {
+        throw new NotImplementedException();
+    }
+}
