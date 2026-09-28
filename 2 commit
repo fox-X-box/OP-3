@@ -45,16 +45,19 @@ public class SimpleMap<TKey, TValue>
     
     public void Put(TKey key, TValue value)
     {
-        int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Lenght;
-        if (bucket == null)
+        int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
+        if (buckets[bucket] == null)
         {
             buckets[bucket] = new Node(key, value);
         }
         else
         {
-            buckets[bucket] = Node(key, value)
+            while (Node.Next != null)
+            {
+                current = current.Next;
+            }
+            buckets[bucket] = new Node(key, value);
         }
-        //throw new NotImplementedException();
     }
 
     public bool TryGet(TKey key, out TValue value)
