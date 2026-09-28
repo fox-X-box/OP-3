@@ -19,25 +19,35 @@ namespace Collections;
 //     и все пары раскладываются заново
 public class SimpleMap<TKey, TValue>
 {
+    private Node[] buckets;
+
     public SimpleMap(int capacity = 16)
     {
-        throw new NotImplementedException();
+        
+        //throw new NotImplementedException();
     }
 
     public int Count => throw new NotImplementedException();
 
-    public Node(TKey key, TValue value)
+    private class Node
     {
         public TKey Key;
         public TValue Value;
         public Node Next;
+
+        public Node(TKey key, TValue value)
+        {
+            Key = key;
+            Value = value;
+            Next = null;
+        }
     }
     
     public void Put(TKey key, TValue value)
     {
         int hash = key.GetHashCode();
-        bucket = hash % 16
-        bucket.add(Node(key, value))
+        int bucket = hash % lenght(buckets)
+        buckets.add(Node[bucket])
         //throw new NotImplementedException();
     }
 
