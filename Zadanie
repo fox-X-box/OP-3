@@ -21,20 +21,10 @@ public class SimpleMap<TKey, TValue>
 {
     private Node[] buckets;
     private int count;
-    private bool sixseven_procent()
+    private bool some_procent()
     {
-        int i = 0;
-        int c = 0;
-        while (i < buckets.Length)
-        {
-            if (buckets[i] != null)
-            {
-                c++;
-            }
-            i++;
-        }
-        return (c * 4) >= (buckets.Length * 3);
-    } 
+        return ((long)count + 1) * 4 > (long)buckets.Length * 3;
+    }
 
     public SimpleMap(int capacity = 16)
     {
@@ -57,61 +47,64 @@ public class SimpleMap<TKey, TValue>
             Next = null;
         }
     }
-    
     public void Put(TKey key, TValue value)
     {
         int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
+    
+        Node current = buckets[bucket];
+    
+        while (current != null)
+        {
+            if (object.Equals(current.Key, key))
+            {
+                current.Value = value;
+                return;
+            }
+    
+            current = current.Next;
+        }
+    
+        if (some_procent())
+        {
+            Node[] buc = buckets;
+            buckets = new Node[buc.Length * 2];
+            count = 0;
+    
+            int i1 = 0;
+            while (i1 < buc.Length)
+            {
+                current = buc[i1];
+    
+                while (current != null)
+                {
+                    Put(current.Key, current.Value);
+                    current = current.Next;
+                }
+    
+                i1++;
+            }
+    
+            bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
+        }
+    
         if (buckets[bucket] == null)
         {
-            if (sixseven_procent() == true)
-            {
-                Node[] buc = buckets;
-                buckets = new Node[buc.Length * 2];
-                count = 0;
-                int i1 = 0;
-                while (i1 < buc.Length)
-                {
-                    Node current = buc[i1];
-                    while (current != null)
-                    {
-                        Put(current.Key, current.Value);
-                        current = current.Next;
-                    }
-                    i1++;
-                }
-                Put(key, value);
-                return;
-            }    
-            
-            else
-            {
             buckets[bucket] = new Node(key, value);
-            count++;
-            }
-            
         }
         else
         {
-            Node current = buckets[bucket];
-            if (object.Equals(current.Key, key))
-                {
-                    current.Value = value;
-                    return;
-                }    
+            current = buckets[bucket];
+    
             while (current.Next != null)
-            {   
+            {
                 current = current.Next;
-                if (object.Equals(current.Key, key))
-                {
-                    current.Value = value;
-                    return;
-                }
             }
-            count++;
+    
             current.Next = new Node(key, value);
         }
+    
+        count++;
     }
-
     public bool TryGet(TKey key, out TValue value)
     {
         int bucket = (key.GetHashCode() & 0x7FFFFFFF) % buckets.Length;
